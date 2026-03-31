@@ -936,7 +936,7 @@
       // ── Submit ───────────────────────────────────────────────────
       document
         .getElementById("rsvpForm")
-        .addEventListener("submit", async function (e) {
+        .addEventListener("submit", function (e) {
           e.preventDefault();
 
           const attendingEl = document.querySelector(
@@ -973,14 +973,8 @@
           submitBtn.disabled = true;
           submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
 
-          try {
-            await fetch(APPS_SCRIPT_URL, {
-              method: "POST",
-              mode: "no-cors",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            });
-
+          // ── Show thank you immediately — don't wait on network ──
+          setTimeout(() => {
             document.getElementById("thankyouHeading").textContent = attending
               ? "See you there! ♡"
               : "We'll miss you!";
@@ -988,14 +982,15 @@
               ? "Your RSVP has been received. We cannot wait to celebrate with you on June 17, 2028!"
               : "Your response has been recorded. We're sad you can't make it, but we'll be thinking of you!";
             goToStep(3);
-          } catch (err) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "Submit RSVP";
-            showStatus(
-              "Something went wrong. Please try again or email us directly.",
-              true,
-            );
-          }
+          }, 400);
+
+          // ── Send to Apps Script in the background ──
+          fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }).catch(() => {}); // silently ignore network errors
         });
 
       // ── Reset to search ──────────────────────────────────────────
