@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photos — Sarah &amp; James</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-monogram">A &amp; T</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="things-to-do.html">Things To Do</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="faq.html">Q &amp; A</a></li>
+          <li><a href="registry.html" class="nav-rsvp">Registry</a></li>
+        </ul>
+        <button class="nav-burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="our-story.html">Our Story</a>
+        <a href="photos.html">Photos</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="faq.html">Q &amp; A</a>
+        <a href="travel.html">Travel</a>
+        <a href="things-to-do.html">Things To Do</a>
+        <a href="registry.html">Registry</a>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <p class="page-hero-eyebrow">Our favorite moments</p>
+      <h1>Photos</h1>
+      <p>A glimpse into our journey together.</p>
+    </div>
+
+    <div class="section">
+      <!--
+      💡 HOW TO ADD PHOTOS:
+      1. Place your image files in the /images/ folder
+      2. For each photo, copy one .photo-item block below
+      3. Add data-src="images/your-photo.jpg" to the div
+      4. Add an <img> tag inside with the same src
+      5. Remove the .photo-placeholder div
+
+      EXAMPLE:
+      <div class="photo-item" data-src="images/photo1.jpg">
+        <img src="images/photo1.jpg" alt="Description of photo">
+      </div>
+    -->
+
+      <div class="photo-grid">
+        <!-- Placeholder tiles — replace each one with a real photo -->
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">Your photo here</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="Photo" />
+    </div>
+
+    <footer class="footer">
+      <p class="footer-names">A &amp; T</p>
+      <p class="footer-date">June 17, 2028 &middot; Minneapolis, MN</p>
+      <p class="footer-note">Made with love &#9825;</p>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>

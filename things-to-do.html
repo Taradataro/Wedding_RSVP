@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Things To Do — Sarah &amp; James</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-monogram">A &amp; T</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="things-to-do.html">Things To Do</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="faq.html">Q &amp; A</a></li>
+          <li><a href="registry.html" class="nav-rsvp">Registry</a></li>
+        </ul>
+        <button class="nav-burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="our-story.html">Our Story</a>
+        <a href="photos.html">Photos</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="faq.html">Q &amp; A</a>
+        <a href="travel.html">Travel</a>
+        <a href="things-to-do.html">Things To Do</a>
+        <a href="registry.html">Registry</a>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <p class="page-hero-eyebrow">Make the most of your trip</p>
+      <h1>Things To Do</h1>
+      <p>Our favorite spots in Minneapolis — hand-picked just for you.</p>
+    </div>
+
+    <div class="section">
+      <!-- TABS -->
+      <div class="things-tabs">
+        <button class="things-tab active" data-tab="tab-eat">
+          Eat &amp; Drink
+        </button>
+        <button class="things-tab" data-tab="tab-explore">Explore</button>
+        <button class="things-tab" data-tab="tab-outdoors">Outdoors</button>
+        <button class="things-tab" data-tab="tab-family">
+          Family Friendly
+        </button>
+      </div>
+
+      <!-- EAT & DRINK -->
+      <div class="things-panel active" id="tab-eat">
+        <!-- 💡 TIP: Replace with your actual restaurant/bar recommendations -->
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127860;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Spoon and Stable</h3>
+            <p>
+              Gavin Kaysen's flagship restaurant in the North Loop. Exceptional
+              French-American cuisine in a beautiful converted warehouse space.
+              Reservations highly recommended.
+            </p>
+            <span class="things-card-tag"
+              >&#127860; Fine Dining &middot; North Loop</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#9749;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Parlour Bar</h3>
+            <p>
+              A lively cocktail bar in the North Loop with creative drinks and a
+              cozy atmosphere. Perfect for a pre-dinner cocktail or a nightcap.
+            </p>
+            <span class="things-card-tag"
+              >&#9749; Cocktails &middot; North Loop</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127858;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Nighthawks</h3>
+            <p>
+              A classic American diner-style spot open late. Great burgers,
+              milkshakes, and breakfast all day. A local favorite for a casual
+              bite.
+            </p>
+            <span class="things-card-tag"
+              >&#127858; Casual &middot; Uptown</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127866;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Indeed Brewing</h3>
+            <p>
+              One of Minneapolis's favorite craft breweries with a fantastic
+              taproom and rotating seasonal beers. Great for a relaxed
+              afternoon.
+            </p>
+            <span class="things-card-tag"
+              >&#127866; Brewery &middot; NE Minneapolis</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPLORE -->
+      <div class="things-panel" id="tab-explore">
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127912;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Minneapolis Institute of Art</h3>
+            <p>
+              World-class art museum with over 90,000 works spanning 5,000
+              years. Free general admission. A must-visit for art lovers.
+            </p>
+            <span class="things-card-tag">&#127912; Museum &middot; Free</span>
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127973;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>First Avenue &amp; 7th St Entry</h3>
+            <p>
+              Legendary music venue immortalized by Prince. Check the calendar
+              for shows happening during your visit — the energy here is
+              unmatched.
+            </p>
+            <span class="things-card-tag"
+              >&#127925; Live Music &middot; Downtown</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#128717;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Nicollet Mall</h3>
+            <p>
+              Minneapolis's main pedestrian-friendly shopping street with
+              boutiques, restaurants, and street art. Great for a leisurely
+              afternoon stroll.
+            </p>
+            <span class="things-card-tag"
+              >&#128717; Shopping &middot; Downtown</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127968;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Northeast Arts District</h3>
+            <p>
+              The NE Minneapolis arts scene is thriving with galleries, studios,
+              and creative restaurants. The Art-A-Whirl studio tour happens
+              every May — just before the wedding!
+            </p>
+            <span class="things-card-tag"
+              >&#127912; Arts &middot; NE Minneapolis</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTDOORS -->
+      <div class="things-panel" id="tab-outdoors">
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127807;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Chain of Lakes</h3>
+            <p>
+              A stunning connected network of lakes — Calhoun, Harriet, Isles,
+              and Cedar — with scenic paths for walking, running, and biking. A
+              Minneapolis gem.
+            </p>
+            <span class="things-card-tag"
+              >&#127807; Outdoors &middot; Southwest Mpls</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127754;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Minnehaha Falls</h3>
+            <p>
+              A beautiful 53-foot waterfall within Minnehaha Regional Park. Walk
+              the trails, have a picnic, and enjoy some of the most scenic
+              nature in the city.
+            </p>
+            <span class="things-card-tag">&#127754; Nature &middot; Free</span>
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#128692;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Nice Ride Bike Share</h3>
+            <p>
+              Rent a bike and explore Minneapolis's 100+ miles of bike lanes.
+              The city is incredibly bike-friendly — a great way to see the
+              lakes and neighborhoods.
+            </p>
+            <span class="things-card-tag"
+              >&#128692; Biking &middot; Citywide</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- FAMILY FRIENDLY -->
+      <div class="things-panel" id="tab-family">
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127981;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Minnesota Zoo</h3>
+            <p>
+              One of the country's top zoos with over 4,500 animals and
+              beautiful natural habitats. Located in Apple Valley, about 20
+              minutes south of Minneapolis.
+            </p>
+            <span class="things-card-tag"
+              >&#127981; Family &middot; Apple Valley</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#128301;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Science Museum of Minnesota</h3>
+            <p>
+              Interactive exhibits spanning science, technology, and natural
+              history. Located in St. Paul, right next to the Mississippi River.
+              Great for all ages.
+            </p>
+            <span class="things-card-tag"
+              >&#128301; Museum &middot; St. Paul</span
+            >
+          </div>
+        </div>
+
+        <div class="things-card">
+          <div class="things-card-img">
+            <div class="things-card-img-placeholder">&#127907;</div>
+          </div>
+          <div class="things-card-body">
+            <h3>Mall of America</h3>
+            <p>
+              The largest mall in the US, complete with an indoor theme park,
+              aquarium, mini-golf, and hundreds of shops. Located 15 minutes
+              from downtown.
+            </p>
+            <span class="things-card-tag"
+              >&#127907; Shopping &middot; Bloomington</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-names">A &amp; T</p>
+      <p class="footer-date">June 17, 2028 &middot; Minneapolis, MN</p>
+      <p class="footer-note">Made with love &#9825;</p>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>

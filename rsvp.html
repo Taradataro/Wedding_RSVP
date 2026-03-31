@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP — A &amp; T</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .rsvp-wrap {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 3rem 2rem 6rem;
+      }
+
+      /* Steps */
+      .rsvp-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 3rem;
+      }
+      .rsvp-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .rsvp-step-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--blush);
+        background: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        color: var(--muted);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .rsvp-step.active .rsvp-step-dot {
+        background: var(--deep-rose);
+        border-color: var(--deep-rose);
+        color: white;
+      }
+      .rsvp-step.done .rsvp-step-dot {
+        background: var(--pistachio);
+        border-color: var(--rose);
+        color: var(--deep-rose);
+      }
+      .rsvp-step-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .rsvp-step.active .rsvp-step-label {
+        color: var(--deep-rose);
+      }
+      .rsvp-step-line {
+        width: 60px;
+        height: 1px;
+        background: var(--blush);
+        margin: 0 4px 22px;
+      }
+
+      /* Panels */
+      .rsvp-panel {
+        display: none;
+        animation: panelIn 0.4s ease both;
+      }
+      .rsvp-panel.active {
+        display: block;
+      }
+      @keyframes panelIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Search */
+      .search-wrap {
+        position: relative;
+        margin-bottom: 0.5rem;
+      }
+      .search-input {
+        width: 100%;
+        padding: 1rem 1.25rem 1rem 3rem;
+        border: 1px solid var(--blush);
+        border-radius: 4px;
+        background: white;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 300;
+        color: var(--dark);
+        outline: none;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s;
+      }
+      .search-input:focus {
+        border-color: var(--rose);
+        box-shadow: 0 0 0 3px rgba(125, 140, 107, 0.12);
+      }
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        pointer-events: none;
+      }
+      .search-hint {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+        padding-left: 0.25rem;
+      }
+
+      /* Results dropdown */
+      .search-results {
+        border: 1px solid var(--blush);
+        border-radius: 4px;
+        background: white;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        display: none;
+        box-shadow: 0 4px 20px rgba(74, 92, 58, 0.08);
+      }
+      .search-results.visible {
+        display: block;
+      }
+      .search-result-item {
+        padding: 0.9rem 1.25rem;
+        cursor: pointer;
+        border-bottom: 1px solid var(--blush);
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .search-result-item:last-child {
+        border-bottom: none;
+      }
+      .search-result-item:hover {
+        background: #f0f4eb;
+      }
+      .result-name {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: var(--deep-rose);
+        flex: 1;
+      }
+      .result-group {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        background: var(--pistachio);
+        padding: 0.2rem 0.7rem;
+        border-radius: 20px;
+        color: var(--deep-rose);
+        white-space: nowrap;
+      }
+      .search-no-results {
+        padding: 1.25rem;
+        font-size: 0.88rem;
+        color: var(--muted);
+        text-align: center;
+        font-style: italic;
+      }
+
+      /* Selected name */
+      .rsvp-selected-name {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: #f0f4eb;
+        border: 1px solid var(--rose);
+        border-radius: 4px;
+        margin-bottom: 2rem;
+      }
+      .rsvp-selected-name span {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        color: var(--deep-rose);
+        flex: 1;
+      }
+      .btn-change {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .btn-change:hover {
+        color: var(--rose);
+      }
+
+      /* Form */
+      .form-group {
+        margin-bottom: 1.75rem;
+      }
+      .form-label {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+      .form-label .req {
+        color: var(--rose);
+        margin-left: 2px;
+      }
+
+      /* Pill toggles */
+      .pill-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .pill-group input[type="radio"],
+      .pill-group input[type="checkbox"] {
+        display: none;
+      }
+      .pill-group label {
+        padding: 0.5rem 1.1rem;
+        border: 1px solid var(--blush);
+        border-radius: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+      }
+      .pill-group input[type="radio"]:checked + label {
+        background: var(--deep-rose);
+        border-color: var(--deep-rose);
+        color: white;
+      }
+      .pill-group input[type="checkbox"]:checked + label {
+        background: var(--deep-rose);
+        border-color: var(--deep-rose);
+        color: white;
+      }
+      .pill-group label:hover {
+        border-color: var(--rose);
+        color: var(--rose);
+      }
+
+      /* Attendance big buttons */
+      .attend-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .attend-group input[type="radio"] {
+        display: none;
+      }
+      .attend-card {
+        padding: 1.5rem 1rem;
+        border: 1px solid var(--blush);
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s;
+      }
+      .attend-card:hover {
+        border-color: var(--rose);
+      }
+      .attend-group input[type="radio"]:checked + .attend-card {
+        border-color: var(--deep-rose);
+        background: #f0f4eb;
+      }
+      .attend-card-icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .attend-card-label {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        color: var(--deep-rose);
+        display: block;
+        margin-bottom: 0.2rem;
+      }
+      .attend-card-sub {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      /* Decline message */
+      .decline-msg {
+        padding: 1.5rem;
+        background: #faf7f2;
+        border: 1px solid var(--blush);
+        border-radius: 4px;
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+      .decline-msg.visible {
+        display: block;
+      }
+
+      /* Text inputs */
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        border: 1px solid var(--blush);
+        border-radius: 4px;
+        background: white;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        font-weight: 300;
+        color: var(--dark);
+        outline: none;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s;
+      }
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: var(--rose);
+        box-shadow: 0 0 0 3px rgba(125, 140, 107, 0.12);
+      }
+      .form-textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+
+      /* Allergy section highlight */
+      .allergy-box {
+        padding: 1.5rem;
+        border: 1px solid var(--pistachio);
+        border-radius: 4px;
+        background: #f8faf5;
+      }
+      .allergy-box .form-group:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Submit */
+      .btn-submit {
+        width: 100%;
+        padding: 1rem;
+        background: var(--deep-rose);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-family: var(--font-body);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          background 0.25s,
+          transform 0.15s;
+        margin-top: 0.5rem;
+      }
+      .btn-submit:hover {
+        background: var(--rose);
+      }
+      .btn-submit:active {
+        transform: scale(0.99);
+      }
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .submit-status {
+        text-align: center;
+        padding: 0.75rem;
+        font-size: 0.82rem;
+        color: var(--muted);
+        display: none;
+      }
+      .submit-status.visible {
+        display: block;
+      }
+
+      /* Thank you */
+      .thankyou-panel {
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      .thankyou-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+      }
+      .thankyou-panel h2 {
+        font-family: var(--font-display);
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: var(--deep-rose);
+        margin-bottom: 1rem;
+      }
+      .thankyou-panel p {
+        font-size: 0.92rem;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 420px;
+        margin: 0 auto 1.5rem;
+      }
+
+      /* Spinner */
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 500px) {
+        .rsvp-step-line {
+          width: 30px;
+        }
+        .attend-group {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-monogram">A &amp; T</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="things-to-do.html">Things To Do</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="faq.html">Q &amp; A</a></li>
+          <li><a href="registry.html" class="nav-rsvp">Registry</a></li>
+        </ul>
+        <button class="nav-burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="our-story.html">Our Story</a>
+        <a href="photos.html">Photos</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="faq.html">Q &amp; A</a>
+        <a href="travel.html">Travel</a>
+        <a href="things-to-do.html">Things To Do</a>
+        <a href="rsvp.html">RSVP</a>
+        <a href="registry.html">Registry</a>
+      </div>
+    </nav>
+
+    <div class="page-hero">
+      <p class="page-hero-eyebrow">June 17, 2028 &middot; Minneapolis, MN</p>
+      <h1>RSVP</h1>
+      <p>
+        Please respond by <strong>May 1, 2028</strong>. Search your name below
+        to get started.
+      </p>
+    </div>
+
+    <div class="rsvp-wrap">
+      <!-- Step indicators -->
+      <div class="rsvp-steps">
+        <div class="rsvp-step active" id="step1ind">
+          <div class="rsvp-step-dot">1</div>
+          <div class="rsvp-step-label">Find Name</div>
+        </div>
+        <div class="rsvp-step-line"></div>
+        <div class="rsvp-step" id="step2ind">
+          <div class="rsvp-step-dot">2</div>
+          <div class="rsvp-step-label">Attendance</div>
+        </div>
+        <div class="rsvp-step-line"></div>
+        <div class="rsvp-step" id="step3ind">
+          <div class="rsvp-step-dot">&#10003;</div>
+          <div class="rsvp-step-label">Done</div>
+        </div>
+      </div>
+
+      <!-- PANEL 1: Search -->
+      <div class="rsvp-panel active" id="panel1">
+        <div class="search-wrap">
+          <span class="search-icon">&#128269;</span>
+          <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Type your first or last name…"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          />
+        </div>
+        <p class="search-hint">Start typing — your name will appear below</p>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+
+      <!-- PANEL 2: RSVP Form -->
+      <div class="rsvp-panel" id="panel2">
+        <div class="rsvp-selected-name">
+          <span id="selectedNameDisplay">—</span>
+          <button class="btn-change" onclick="goToStep(1)">Not you?</button>
+        </div>
+
+        <form id="rsvpForm">
+          <!-- Attendance -->
+          <div class="form-group">
+            <label class="form-label"
+              >Will you be attending? <span class="req">*</span></label
+            >
+            <div class="attend-group">
+              <input type="radio" name="attending" id="att_yes" value="yes" />
+              <label class="attend-card" for="att_yes">
+                <div class="attend-card-icon">&#127801;</div>
+                <span class="attend-card-label">Joyfully Accepts</span>
+                <span class="attend-card-sub">I'll be there!</span>
+              </label>
+              <input type="radio" name="attending" id="att_no" value="no" />
+              <label class="attend-card" for="att_no">
+                <div class="attend-card-icon">&#128140;</div>
+                <span class="attend-card-label">Regretfully Declines</span>
+                <span class="attend-card-sub">I can't make it</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Decline message -->
+          <div class="decline-msg" id="declineMsg">
+            We're so sad you can't make it, but we completely understand. We'll
+            be thinking of you on our special day. &#9825;
+          </div>
+
+          <!-- Attending section -->
+          <div id="attendingSection" style="display: none">
+            <!-- Allergies box -->
+            <div class="allergy-box">
+              <div class="form-group">
+                <label class="form-label"
+                  >Food allergies or dietary restrictions</label
+                >
+                <div class="pill-group">
+                  <input
+                    type="checkbox"
+                    id="al-gluten"
+                    name="allergies"
+                    value="Gluten-free"
+                  />
+                  <label for="al-gluten">Gluten-free</label>
+                  <input
+                    type="checkbox"
+                    id="al-nuts"
+                    name="allergies"
+                    value="Nut allergy"
+                  />
+                  <label for="al-nuts">Nut allergy</label>
+                  <input
+                    type="checkbox"
+                    id="al-dairy"
+                    name="allergies"
+                    value="Dairy-free"
+                  />
+                  <label for="al-dairy">Dairy-free</label>
+                  <input
+                    type="checkbox"
+                    id="al-shellfish"
+                    name="allergies"
+                    value="Shellfish"
+                  />
+                  <label for="al-shellfish">Shellfish</label>
+                  <input
+                    type="checkbox"
+                    id="al-vegan"
+                    name="allergies"
+                    value="Vegan"
+                  />
+                  <label for="al-vegan">Vegan</label>
+                  <input
+                    type="checkbox"
+                    id="al-vegetarian"
+                    name="allergies"
+                    value="Vegetarian"
+                  />
+                  <label for="al-vegetarian">Vegetarian</label>
+                  <input
+                    type="checkbox"
+                    id="al-kosher"
+                    name="allergies"
+                    value="Kosher"
+                  />
+                  <label for="al-kosher">Kosher</label>
+                  <input
+                    type="checkbox"
+                    id="al-halal"
+                    name="allergies"
+                    value="Halal"
+                  />
+                  <label for="al-halal">Halal</label>
+                  <input
+                    type="checkbox"
+                    id="al-none"
+                    name="allergies"
+                    value="None"
+                  />
+                  <label for="al-none">No restrictions</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="allergyDetail">
+                  Please describe your allergy or dietary need
+                  <span
+                    style="
+                      font-weight: 300;
+                      text-transform: none;
+                      letter-spacing: 0;
+                    "
+                    >(optional)</span
+                  >
+                </label>
+                <textarea
+                  class="form-textarea"
+                  id="allergyDetail"
+                  placeholder="e.g. severe peanut allergy, lactose intolerant, pescatarian…"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Song request -->
+            <div class="form-group" style="margin-top: 1.75rem">
+              <label class="form-label" for="songRequest"
+                >Song request for the dance floor &#127926;</label
+              >
+              <input
+                type="text"
+                class="form-input"
+                id="songRequest"
+                placeholder="Any song that'll get you moving?"
+              />
+            </div>
+          </div>
+          <!-- /attendingSection -->
+
+          <!-- Note — always visible -->
+          <div class="form-group" id="noteGroup" style="display: none">
+            <label class="form-label" for="noteField"
+              >Leave us a note &#128140;
+              <span
+                style="
+                  font-weight: 300;
+                  text-transform: none;
+                  letter-spacing: 0;
+                "
+                >(optional)</span
+              ></label
+            >
+            <textarea
+              class="form-textarea"
+              id="noteField"
+              placeholder="Any message for the couple?"
+            ></textarea>
+          </div>
+
+          <div class="submit-status" id="submitStatus"></div>
+          <button
+            type="submit"
+            class="btn-submit"
+            id="submitBtn"
+            style="display: none"
+          >
+            Submit RSVP
+          </button>
+        </form>
+      </div>
+
+      <!-- PANEL 3: Thank you -->
+      <div class="rsvp-panel" id="panel3">
+        <div class="thankyou-panel">
+          <div class="thankyou-icon">&#127801;</div>
+          <h2 id="thankyouHeading">Thank you!</h2>
+          <p id="thankyouMsg">
+            Your RSVP has been received. We can't wait to celebrate with you!
+          </p>
+          <a href="index.html" class="btn-outline" style="margin-top: 1rem"
+            >Back to Home</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-names">A &amp; T</p>
+      <p class="footer-date">June 17, 2028 &middot; Minneapolis, MN</p>
+      <p class="footer-note">Made with love &#9825;</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+      // ── Config ───────────────────────────────────────────────────
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyFhpWpl5nYKtTnRQNVvjBmI9zuZZb4CUsNfO6ppOoUXH6lGEKugCton8Yv4Ryslvg2Hw/exec";
+
+      // ── Guest list ───────────────────────────────────────────────
+      // Format: { name: 'Display Name', group: 'Family Group' }
+      const GUEST_LIST = [
+        // ── Cau Liem ──────────────────────────────
+        { name: "Liem Nguyen", group: "Cau Liem" },
+        { name: "Duong Duong", group: "Cau Liem" },
+        { name: "Ba An Nguyen", group: "Cau Liem" },
+        { name: "Thien An Nguyen", group: "Cau Liem" },
+        { name: "Christopher Yen", group: "Cau Liem" },
+        { name: "Huy Yen", group: "Cau Liem" },
+        { name: "Hong An Nguyen", group: "Cau Liem" },
+        { name: "Duy Do", group: "Cau Liem" },
+        { name: "Anna Do", group: "Cau Liem" },
+        { name: "Kevin Do", group: "Cau Liem" },
+        { name: "Thy Ngan Nguyen", group: "Cau Liem" },
+        { name: "Chuong Nguyen", group: "Cau Liem" },
+        { name: "Lily Nguyen", group: "Cau Liem" },
+        { name: "Minh An Nguyen", group: "Cau Liem" },
+        { name: "Minh An Wife", group: "Cau Liem" },
+        { name: "Minh An Kid", group: "Cau Liem" },
+        // ── Cau Minh ──────────────────────────────
+        { name: "Minh Nguyen", group: "Cau Minh" },
+        { name: "Tay Truong", group: "Cau Minh" },
+        { name: "Akilah Nguyen", group: "Cau Minh" },
+        { name: "Akilah Fiance", group: "Cau Minh" },
+        { name: "Thavanie Nguyen", group: "Cau Minh" },
+        { name: "Tuan Nguyen", group: "Cau Minh" },
+        // ── Di Be ─────────────────────────────────
+        { name: "Tuyen Nguyen", group: "Di Be" },
+        { name: "Huong Nguyen", group: "Di Be" },
+        { name: "Tracy Leong", group: "Di Be" },
+        { name: "Kenny Leong", group: "Di Be" },
+        // ── Di Hoang ──────────────────────────────
+        { name: "Que Ho", group: "Di Hoang" },
+        { name: "Hoang Nguyen", group: "Di Hoang" },
+        { name: "Thuy Ho", group: "Di Hoang" },
+        { name: "Huan Nguyen", group: "Di Hoang" },
+        { name: "Neil Nguyen", group: "Di Hoang" },
+        { name: "Bree Nguyen", group: "Di Hoang" },
+        { name: "Tan Ho", group: "Di Hoang" },
+        { name: "Thanh Ho", group: "Di Hoang" },
+        { name: "Hang Ho", group: "Di Hoang" },
+        { name: "Vu Nguyen", group: "Di Hoang" },
+        { name: "Thang Ho", group: "Di Hoang" },
+        { name: "Desiree Xiong", group: "Di Hoang" },
+        { name: "Duc Ho", group: "Di Hoang" },
+        // ── Di Phuong ─────────────────────────────
+        { name: "Phuong Nguyen", group: "Di Phuong" },
+        { name: "Jessie Pham", group: "Di Phuong" },
+        // ── Mo Ha ─────────────────────────────────
+        { name: "Ha Duong", group: "Mo Ha" },
+        { name: "Hai Nguyen", group: "Mo Ha" },
+        { name: "Lan Nguyen", group: "Mo Ha" },
+        { name: "Chau Kiefer", group: "Mo Ha" },
+        { name: "Brandon Kiefer", group: "Mo Ha" },
+        { name: "Nguyen Shah", group: "Mo Ha" },
+        { name: "Rishabh Shah", group: "Mo Ha" },
+        // ── Friends ───────────────────────────────
+        { name: "Nhi Baltazar", group: "Friend" },
+        { name: "Phuong Vu", group: "Friend" },
+        { name: "Elizabeth Nguyen", group: "Friend" },
+        { name: "Thu Ha Nguyen", group: "Friend" },
+        { name: "Razeqa Aliyi", group: "Friend" },
+        { name: "Sandra Zamora", group: "Friend" },
+        { name: "Sabrina Kubisa", group: "Friend" },
+        { name: "Katie Nguyen", group: "Friend" },
+        { name: "Khanh Nguyen", group: "Friend" },
+        { name: "Suzane Ha", group: "Friend" },
+        { name: "Van Bui", group: "Friend" },
+        { name: "Lynn Tran", group: "Friend" },
+      ];
+
+      // ── State ────────────────────────────────────────────────────
+      let selectedGuest = null;
+
+      // ── Step navigation ──────────────────────────────────────────
+      function goToStep(step) {
+        document
+          .querySelectorAll(".rsvp-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("panel" + step).classList.add("active");
+        ["1", "2", "3"].forEach((n) => {
+          const el = document.getElementById("step" + n + "ind");
+          if (!el) return;
+          el.classList.remove("active", "done");
+          if (parseInt(n) < step) el.classList.add("done");
+          else if (parseInt(n) === step) el.classList.add("active");
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ── Search ───────────────────────────────────────────────────
+      const searchInput = document.getElementById("searchInput");
+      const searchResults = document.getElementById("searchResults");
+
+      searchInput.addEventListener("input", function () {
+        const q = this.value.trim().toLowerCase();
+        if (q.length < 1) {
+          searchResults.classList.remove("visible");
+          return;
+        }
+
+        const matches = GUEST_LIST.filter((g) =>
+          g.name.toLowerCase().includes(q),
+        );
+
+        searchResults.innerHTML = "";
+        if (matches.length === 0) {
+          searchResults.innerHTML = `<div class="search-no-results">No results for "<em>${escHtml(this.value)}</em>".<br/>Try a different spelling or contact us directly.</div>`;
+        } else {
+          matches.slice(0, 8).forEach((guest) => {
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.innerHTML = `<div class="result-name">${escHtml(guest.name)}</div><div class="result-group">${escHtml(guest.group)}</div>`;
+            item.addEventListener("click", () => selectGuest(guest));
+            searchResults.appendChild(item);
+          });
+        }
+        searchResults.classList.add("visible");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#panel1"))
+          searchResults.classList.remove("visible");
+      });
+
+      // ── Select guest ─────────────────────────────────────────────
+      function selectGuest(guest) {
+        selectedGuest = guest;
+        document.getElementById("selectedNameDisplay").textContent = guest.name;
+        // Reset form
+        document.getElementById("rsvpForm").reset();
+        document.getElementById("attendingSection").style.display = "none";
+        document.getElementById("noteGroup").style.display = "none";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("declineMsg").classList.remove("visible");
+        document.getElementById("submitStatus").classList.remove("visible");
+        goToStep(2);
+      }
+
+      // ── Attendance toggle ────────────────────────────────────────
+      document.querySelectorAll('input[name="attending"]').forEach((radio) => {
+        radio.addEventListener("change", function () {
+          const attending = this.value === "yes";
+          document.getElementById("attendingSection").style.display = attending
+            ? "block"
+            : "none";
+          document
+            .getElementById("declineMsg")
+            .classList.toggle("visible", !attending);
+          document.getElementById("noteGroup").style.display = "block";
+          document.getElementById("submitBtn").style.display = "block";
+        });
+      });
+
+      // ── Submit ───────────────────────────────────────────────────
+      document
+        .getElementById("rsvpForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const attendingEl = document.querySelector(
+            'input[name="attending"]:checked',
+          );
+          if (!attendingEl) {
+            showStatus("Please select whether you will be attending.", true);
+            return;
+          }
+
+          const attending = attendingEl.value === "yes";
+          const allergies = [
+            ...document.querySelectorAll('input[name="allergies"]:checked'),
+          ]
+            .map((cb) => cb.value)
+            .join(", ");
+
+          const payload = {
+            guestName: selectedGuest.name,
+            familyGroup: selectedGuest.group,
+            attending,
+            allergies: attending ? allergies || "None" : "—",
+            allergyDetail: attending
+              ? document.getElementById("allergyDetail").value.trim()
+              : "—",
+            songRequest: attending
+              ? document.getElementById("songRequest").value.trim()
+              : "—",
+            note: document.getElementById("noteField").value.trim(),
+            submittedAt: new Date().toISOString(),
+          };
+
+          const submitBtn = document.getElementById("submitBtn");
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+          try {
+            await fetch(APPS_SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            document.getElementById("thankyouHeading").textContent = attending
+              ? "See you there! ♡"
+              : "We'll miss you!";
+            document.getElementById("thankyouMsg").textContent = attending
+              ? "Your RSVP has been received. We cannot wait to celebrate with you on June 17, 2028!"
+              : "Your response has been recorded. We're sad you can't make it, but we'll be thinking of you!";
+            goToStep(3);
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Submit RSVP";
+            showStatus(
+              "Something went wrong. Please try again or email us directly.",
+              true,
+            );
+          }
+        });
+
+      function showStatus(msg, isError) {
+        const el = document.getElementById("submitStatus");
+        el.textContent = msg;
+        el.style.color = isError ? "#8b4a42" : "var(--muted)";
+        el.classList.add("visible");
+      }
+
+      function escHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+    </script>
+  </body>
+</html>

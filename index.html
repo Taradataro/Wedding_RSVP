@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A &amp; T — June 17, 2028</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-monogram">A &amp; T</a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="photos.html">Photos</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="travel.html">Travel</a></li>
+          <li><a href="things-to-do.html">Things To Do</a></li>
+          <li><a href="rsvp.html">RSVP</a></li>
+          <li><a href="faq.html">Q &amp; A</a></li>
+          <li><a href="registry.html" class="nav-rsvp">Registry</a></li>
+        </ul>
+        <button class="nav-burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="our-story.html">Our Story</a>
+        <a href="photos.html">Photos</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="faq.html">Q &amp; A</a>
+        <a href="travel.html">Travel</a>
+        <a href="things-to-do.html">Things To Do</a>
+        <a href="rsvp.html">RSVP</a>
+        <a href="registry.html">Registry</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <canvas id="petals-canvas"></canvas>
+      <div
+        class="hero-bg"
+        style="background-image: url(&quot;images/hero.jpg&quot;)"
+      ></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">We're getting married</p>
+        <h1 class="hero-names">
+          A<br /><span class="hero-amp">&amp;</span><br />T
+        </h1>
+        <p class="hero-date">June 17, 2028 &middot; Minneapolis, MN</p>
+        <a href="rsvp.html" class="btn-primary">RSVP Now</a>
+      </div>
+      <div class="countdown" id="countdown">
+        <div class="countdown-block">
+          <span id="cd-days">--</span><small>Days</small>
+        </div>
+        <div class="countdown-block">
+          <span id="cd-hours">--</span><small>Hours</small>
+        </div>
+        <div class="countdown-block">
+          <span id="cd-mins">--</span><small>Minutes</small>
+        </div>
+        <div class="countdown-block">
+          <span id="cd-secs">--</span><small>Seconds</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section reveal">
+      <blockquote>
+        "Whatever our souls are made of,<br />his and mine are the same."
+        <cite>— Emily Bront&euml;</cite>
+      </blockquote>
+    </section>
+
+    <div class="info-cards reveal">
+      <div class="info-card">
+        <div class="info-icon">&#9962;</div>
+        <h3>Ceremony</h3>
+        <p>Your Ceremony Venue<br />123 Venue Street<br />Minneapolis, MN</p>
+        <p class="info-time">3:00 PM</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">&#127942;</div>
+        <h3>Reception</h3>
+        <p>Your Reception Venue<br />456 Reception Ave<br />Minneapolis, MN</p>
+        <p class="info-time">5:00 PM</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">&#127801;</div>
+        <h3>Dress Code</h3>
+        <p>
+          Black Tie Optional<br />Floral prints<br />welcome &amp; encouraged
+        </p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">&#128197;</div>
+        <h3>RSVP By</h3>
+        <p>Please respond by<br />May 1, 2028</p>
+        <p class="info-time">
+          <a href="rsvp.html" style="color: inherit">RSVP Here &rarr;</a>
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-names">A &amp; T</p>
+      <p class="footer-date">June 17, 2028 &middot; Minneapolis, MN</p>
+      <p class="footer-note">Made with love &#9825;</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
