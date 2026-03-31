@@ -1004,11 +1004,15 @@
         document.getElementById("rsvpForm").reset();
         document.getElementById("attendingSection").style.display = "none";
         document.getElementById("noteGroup").style.display = "none";
-        document.getElementById("submitBtn").style.display = "none";
-        document.getElementById("anotherBtn2").style.display = "none";
         document.getElementById("declineMsg").classList.remove("visible");
         document.getElementById("submitStatus").classList.remove("visible");
         document.getElementById("selectedNameDisplay").textContent = "—";
+        // Reset submit button — this was causing the slowness on 2nd person
+        const submitBtn = document.getElementById("submitBtn");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Submit RSVP";
+        submitBtn.style.display = "none";
+        document.getElementById("anotherBtn2").style.display = "none";
         goToStep(1);
         // Focus search box
         setTimeout(() => document.getElementById("searchInput").focus(), 400);
