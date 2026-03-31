@@ -760,13 +760,6 @@
             >
               &#43; RSVP Another Person
             </button>
-            <button
-              class="btn-another"
-              style="max-width: 280px"
-              onclick="resetToSearch()"
-            >
-              RSVP Again
-            </button>
           </div>
         </div>
       </div>
@@ -781,78 +774,79 @@
     <script src="js/main.js"></script>
     <script>
       // ── Config ───────────────────────────────────────────────────
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFhpWpl5nYKtTnRQNVvjBmI9zuZZb4CUsNfO6ppOoUXH6lGEKugCton8Yv4Ryslvg2Hw/exec';
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyFhpWpl5nYKtTnRQNVvjBmI9zuZZb4CUsNfO6ppOoUXH6lGEKugCton8Yv4Ryslvg2Hw/exec";
 
       // ── Guest list ───────────────────────────────────────────────
       // Format: { name: 'Display Name', group: 'Family Group' }
       const GUEST_LIST = [
         // ── Cau Liem ──────────────────────────────
-        { name: 'Liem Nguyen',       group: 'Cau Liem' },
-        { name: 'Duong Duong',       group: 'Cau Liem' },
-        { name: 'Ba An Nguyen',      group: 'Cau Liem' },
-        { name: 'Thien An Nguyen',   group: 'Cau Liem' },
-        { name: 'Christopher Yen',   group: 'Cau Liem' },
-        { name: 'Huy Yen',           group: 'Cau Liem' },
-        { name: 'Hong An Nguyen',    group: 'Cau Liem' },
-        { name: 'Duy Do',            group: 'Cau Liem' },
-        { name: 'Anna Do',           group: 'Cau Liem' },
-        { name: 'Kevin Do',          group: 'Cau Liem' },
-        { name: 'Thy Ngan Nguyen',   group: 'Cau Liem' },
-        { name: 'Chuong Nguyen',     group: 'Cau Liem' },
-        { name: 'Lily Nguyen',       group: 'Cau Liem' },
-        { name: 'Minh An Nguyen',    group: 'Cau Liem' },
-        { name: 'Minh An Wife',      group: 'Cau Liem' },
-        { name: 'Minh An Kid',       group: 'Cau Liem' },
+        { name: "Liem Nguyen", group: "Cau Liem" },
+        { name: "Duong Duong", group: "Cau Liem" },
+        { name: "Ba An Nguyen", group: "Cau Liem" },
+        { name: "Thien An Nguyen", group: "Cau Liem" },
+        { name: "Christopher Yen", group: "Cau Liem" },
+        { name: "Huy Yen", group: "Cau Liem" },
+        { name: "Hong An Nguyen", group: "Cau Liem" },
+        { name: "Duy Do", group: "Cau Liem" },
+        { name: "Anna Do", group: "Cau Liem" },
+        { name: "Kevin Do", group: "Cau Liem" },
+        { name: "Thy Ngan Nguyen", group: "Cau Liem" },
+        { name: "Chuong Nguyen", group: "Cau Liem" },
+        { name: "Lily Nguyen", group: "Cau Liem" },
+        { name: "Minh An Nguyen", group: "Cau Liem" },
+        { name: "Minh An Wife", group: "Cau Liem" },
+        { name: "Minh An Kid", group: "Cau Liem" },
         // ── Cau Minh ──────────────────────────────
-        { name: 'Minh Nguyen',       group: 'Cau Minh' },
-        { name: 'Tay Truong',        group: 'Cau Minh' },
-        { name: 'Akilah Nguyen',     group: 'Cau Minh' },
-        { name: 'Akilah Fiance',     group: 'Cau Minh' },
-        { name: 'Thavanie Nguyen',   group: 'Cau Minh' },
-        { name: 'Tuan Nguyen',       group: 'Cau Minh' },
+        { name: "Minh Nguyen", group: "Cau Minh" },
+        { name: "Tay Truong", group: "Cau Minh" },
+        { name: "Akilah Nguyen", group: "Cau Minh" },
+        { name: "Akilah Fiance", group: "Cau Minh" },
+        { name: "Thavanie Nguyen", group: "Cau Minh" },
+        { name: "Tuan Nguyen", group: "Cau Minh" },
         // ── Di Be ─────────────────────────────────
-        { name: 'Tuyen Nguyen',      group: 'Di Be'    },
-        { name: 'Huong Nguyen',      group: 'Di Be'    },
-        { name: 'Tracy Leong',       group: 'Di Be'    },
-        { name: 'Kenny Leong',       group: 'Di Be'    },
+        { name: "Tuyen Nguyen", group: "Di Be" },
+        { name: "Huong Nguyen", group: "Di Be" },
+        { name: "Tracy Leong", group: "Di Be" },
+        { name: "Kenny Leong", group: "Di Be" },
         // ── Di Hoang ──────────────────────────────
-        { name: 'Que Ho',            group: 'Di Hoang' },
-        { name: 'Hoang Nguyen',      group: 'Di Hoang' },
-        { name: 'Thuy Ho',           group: 'Di Hoang' },
-        { name: 'Huan Nguyen',       group: 'Di Hoang' },
-        { name: 'Neil Nguyen',       group: 'Di Hoang' },
-        { name: 'Bree Nguyen',       group: 'Di Hoang' },
-        { name: 'Tan Ho',            group: 'Di Hoang' },
-        { name: 'Thanh Ho',          group: 'Di Hoang' },
-        { name: 'Hang Ho',           group: 'Di Hoang' },
-        { name: 'Vu Nguyen',         group: 'Di Hoang' },
-        { name: 'Thang Ho',          group: 'Di Hoang' },
-        { name: 'Desiree Xiong',     group: 'Di Hoang' },
-        { name: 'Duc Ho',            group: 'Di Hoang' },
+        { name: "Que Ho", group: "Di Hoang" },
+        { name: "Hoang Nguyen", group: "Di Hoang" },
+        { name: "Thuy Ho", group: "Di Hoang" },
+        { name: "Huan Nguyen", group: "Di Hoang" },
+        { name: "Neil Nguyen", group: "Di Hoang" },
+        { name: "Bree Nguyen", group: "Di Hoang" },
+        { name: "Tan Ho", group: "Di Hoang" },
+        { name: "Thanh Ho", group: "Di Hoang" },
+        { name: "Hang Ho", group: "Di Hoang" },
+        { name: "Vu Nguyen", group: "Di Hoang" },
+        { name: "Thang Ho", group: "Di Hoang" },
+        { name: "Desiree Xiong", group: "Di Hoang" },
+        { name: "Duc Ho", group: "Di Hoang" },
         // ── Di Phuong ─────────────────────────────
-        { name: 'Phuong Nguyen',     group: 'Di Phuong'},
-        { name: 'Jessie Pham',       group: 'Di Phuong'},
+        { name: "Phuong Nguyen", group: "Di Phuong" },
+        { name: "Jessie Pham", group: "Di Phuong" },
         // ── Mo Ha ─────────────────────────────────
-        { name: 'Ha Duong',          group: 'Mo Ha'    },
-        { name: 'Hai Nguyen',        group: 'Mo Ha'    },
-        { name: 'Lan Nguyen',        group: 'Mo Ha'    },
-        { name: 'Chau Kiefer',       group: 'Mo Ha'    },
-        { name: 'Brandon Kiefer',    group: 'Mo Ha'    },
-        { name: 'Nguyen Shah',       group: 'Mo Ha'    },
-        { name: 'Rishabh Shah',      group: 'Mo Ha'    },
+        { name: "Ha Duong", group: "Mo Ha" },
+        { name: "Hai Nguyen", group: "Mo Ha" },
+        { name: "Lan Nguyen", group: "Mo Ha" },
+        { name: "Chau Kiefer", group: "Mo Ha" },
+        { name: "Brandon Kiefer", group: "Mo Ha" },
+        { name: "Nguyen Shah", group: "Mo Ha" },
+        { name: "Rishabh Shah", group: "Mo Ha" },
         // ── Friends ───────────────────────────────
-        { name: 'Nhi Baltazar',      group: 'Friend'   },
-        { name: 'Phuong Vu',         group: 'Friend'   },
-        { name: 'Elizabeth Nguyen',  group: 'Friend'   },
-        { name: 'Thu Ha Nguyen',     group: 'Friend'   },
-        { name: 'Razeqa Aliyi',      group: 'Friend'   },
-        { name: 'Sandra Zamora',     group: 'Friend'   },
-        { name: 'Sabrina Kubisa',    group: 'Friend'   },
-        { name: 'Katie Nguyen',      group: 'Friend'   },
-        { name: 'Khanh Nguyen',      group: 'Friend'   },
-        { name: 'Suzane Ha',         group: 'Friend'   },
-        { name: 'Van Bui',           group: 'Friend'   },
-        { name: 'Lynn Tran',         group: 'Friend'   },
+        { name: "Nhi Baltazar", group: "Friend" },
+        { name: "Phuong Vu", group: "Friend" },
+        { name: "Elizabeth Nguyen", group: "Friend" },
+        { name: "Thu Ha Nguyen", group: "Friend" },
+        { name: "Razeqa Aliyi", group: "Friend" },
+        { name: "Sandra Zamora", group: "Friend" },
+        { name: "Sabrina Kubisa", group: "Friend" },
+        { name: "Katie Nguyen", group: "Friend" },
+        { name: "Khanh Nguyen", group: "Friend" },
+        { name: "Suzane Ha", group: "Friend" },
+        { name: "Van Bui", group: "Friend" },
+        { name: "Lynn Tran", group: "Friend" },
       ];
 
       // ── State ────────────────────────────────────────────────────
@@ -860,151 +854,184 @@
 
       // ── Step navigation ──────────────────────────────────────────
       function goToStep(step) {
-        document.querySelectorAll('.rsvp-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById('panel' + step).classList.add('active');
-        ['1','2','3'].forEach(n => {
-          const el = document.getElementById('step' + n + 'ind');
+        document
+          .querySelectorAll(".rsvp-panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("panel" + step).classList.add("active");
+        ["1", "2", "3"].forEach((n) => {
+          const el = document.getElementById("step" + n + "ind");
           if (!el) return;
-          el.classList.remove('active','done');
-          if (parseInt(n) < step)       el.classList.add('done');
-          else if (parseInt(n) === step) el.classList.add('active');
+          el.classList.remove("active", "done");
+          if (parseInt(n) < step) el.classList.add("done");
+          else if (parseInt(n) === step) el.classList.add("active");
         });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
       // ── Search ───────────────────────────────────────────────────
-      const searchInput   = document.getElementById('searchInput');
-      const searchResults = document.getElementById('searchResults');
+      const searchInput = document.getElementById("searchInput");
+      const searchResults = document.getElementById("searchResults");
 
-      searchInput.addEventListener('input', function () {
+      searchInput.addEventListener("input", function () {
         const q = this.value.trim().toLowerCase();
-        if (q.length < 1) { searchResults.classList.remove('visible'); return; }
+        if (q.length < 1) {
+          searchResults.classList.remove("visible");
+          return;
+        }
 
-        const matches = GUEST_LIST.filter(g => g.name.toLowerCase().includes(q));
+        const matches = GUEST_LIST.filter((g) =>
+          g.name.toLowerCase().includes(q),
+        );
 
-        searchResults.innerHTML = '';
+        searchResults.innerHTML = "";
         if (matches.length === 0) {
           searchResults.innerHTML = `<div class="search-no-results">No results for "<em>${escHtml(this.value)}</em>".<br/>Try a different spelling or contact us directly.</div>`;
         } else {
-          matches.slice(0, 8).forEach(guest => {
-            const item = document.createElement('div');
-            item.className = 'search-result-item';
+          matches.slice(0, 8).forEach((guest) => {
+            const item = document.createElement("div");
+            item.className = "search-result-item";
             item.innerHTML = `<div class="result-name">${escHtml(guest.name)}</div><div class="result-group">${escHtml(guest.group)}</div>`;
-            item.addEventListener('click', () => selectGuest(guest));
+            item.addEventListener("click", () => selectGuest(guest));
             searchResults.appendChild(item);
           });
         }
-        searchResults.classList.add('visible');
+        searchResults.classList.add("visible");
       });
 
-      document.addEventListener('click', e => {
-        if (!e.target.closest('#panel1')) searchResults.classList.remove('visible');
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#panel1"))
+          searchResults.classList.remove("visible");
       });
 
       // ── Select guest ─────────────────────────────────────────────
       function selectGuest(guest) {
         selectedGuest = guest;
-        document.getElementById('selectedNameDisplay').textContent = guest.name;
+        document.getElementById("selectedNameDisplay").textContent = guest.name;
         // Reset form
-        document.getElementById('rsvpForm').reset();
-        document.getElementById('attendingSection').style.display = 'none';
-        document.getElementById('noteGroup').style.display = 'none';
-        document.getElementById('submitBtn').style.display = 'none';
-        document.getElementById('declineMsg').classList.remove('visible');
-        document.getElementById('submitStatus').classList.remove('visible');
+        document.getElementById("rsvpForm").reset();
+        document.getElementById("attendingSection").style.display = "none";
+        document.getElementById("noteGroup").style.display = "none";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("declineMsg").classList.remove("visible");
+        document.getElementById("submitStatus").classList.remove("visible");
         goToStep(2);
       }
 
       // ── Attendance toggle ────────────────────────────────────────
-      document.querySelectorAll('input[name="attending"]').forEach(radio => {
-        radio.addEventListener('change', function () {
-          const attending = this.value === 'yes';
-          document.getElementById('attendingSection').style.display = attending ? 'block' : 'none';
-          document.getElementById('declineMsg').classList.toggle('visible', !attending);
-          document.getElementById('noteGroup').style.display = 'block';
-          document.getElementById('submitBtn').style.display = 'block';
-          document.getElementById('anotherBtn2').style.display = 'block';
+      document.querySelectorAll('input[name="attending"]').forEach((radio) => {
+        radio.addEventListener("change", function () {
+          const attending = this.value === "yes";
+          document.getElementById("attendingSection").style.display = attending
+            ? "block"
+            : "none";
+          document
+            .getElementById("declineMsg")
+            .classList.toggle("visible", !attending);
+          document.getElementById("noteGroup").style.display = "block";
+          document.getElementById("submitBtn").style.display = "block";
+          document.getElementById("anotherBtn2").style.display = "block";
         });
       });
 
       // ── Submit ───────────────────────────────────────────────────
-      document.getElementById('rsvpForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
+      document
+        .getElementById("rsvpForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
 
-        const attendingEl = document.querySelector('input[name="attending"]:checked');
-        if (!attendingEl) {
-          showStatus('Please select whether you will be attending.', true);
-          return;
-        }
+          const attendingEl = document.querySelector(
+            'input[name="attending"]:checked',
+          );
+          if (!attendingEl) {
+            showStatus("Please select whether you will be attending.", true);
+            return;
+          }
 
-        const attending = attendingEl.value === 'yes';
-        const allergies = [...document.querySelectorAll('input[name="allergies"]:checked')]
-          .map(cb => cb.value).join(', ');
+          const attending = attendingEl.value === "yes";
+          const allergies = [
+            ...document.querySelectorAll('input[name="allergies"]:checked'),
+          ]
+            .map((cb) => cb.value)
+            .join(", ");
 
-        const payload = {
-          guestName:     selectedGuest.name,
-          familyGroup:   selectedGuest.group,
-          attending,
-          allergies:     attending ? (allergies || 'None') : '—',
-          allergyDetail: attending ? document.getElementById('allergyDetail').value.trim() : '—',
-          songRequest:   attending ? document.getElementById('songRequest').value.trim()   : '—',
-          note:          document.getElementById('noteField').value.trim(),
-          submittedAt:   new Date().toISOString(),
-        };
+          const payload = {
+            guestName: selectedGuest.name,
+            familyGroup: selectedGuest.group,
+            attending,
+            allergies: attending ? allergies || "None" : "—",
+            allergyDetail: attending
+              ? document.getElementById("allergyDetail").value.trim()
+              : "—",
+            songRequest: attending
+              ? document.getElementById("songRequest").value.trim()
+              : "—",
+            note: document.getElementById("noteField").value.trim(),
+            submittedAt: new Date().toISOString(),
+          };
 
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
+          const submitBtn = document.getElementById("submitBtn");
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
 
-        try {
-          await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode:   'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify(payload),
-          });
+          try {
+            await fetch(APPS_SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
 
-          document.getElementById('thankyouHeading').textContent = attending ? 'See you there! ♡' : 'We\'ll miss you!';
-          document.getElementById('thankyouMsg').textContent = attending
-            ? 'Your RSVP has been received. We cannot wait to celebrate with you on June 17, 2028!'
-            : 'Your response has been recorded. We\'re sad you can\'t make it, but we\'ll be thinking of you!';
-          goToStep(3);
-
-        } catch (err) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Submit RSVP';
-          showStatus('Something went wrong. Please try again or email us directly.', true);
-        }
-      });
+            document.getElementById("thankyouHeading").textContent = attending
+              ? "See you there! ♡"
+              : "We'll miss you!";
+            document.getElementById("thankyouMsg").textContent = attending
+              ? "Your RSVP has been received. We cannot wait to celebrate with you on June 17, 2028!"
+              : "Your response has been recorded. We're sad you can't make it, but we'll be thinking of you!";
+            goToStep(3);
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Submit RSVP";
+            showStatus(
+              "Something went wrong. Please try again or email us directly.",
+              true,
+            );
+          }
+        });
 
       // ── Reset to search ──────────────────────────────────────────
       function resetToSearch() {
         selectedGuest = null;
         // Clear search
-        document.getElementById('searchInput').value = '';
-        document.getElementById('searchResults').classList.remove('visible');
-        searchResults.innerHTML = '';
+        document.getElementById("searchInput").value = "";
+        document.getElementById("searchResults").classList.remove("visible");
+        searchResults.innerHTML = "";
         // Reset form fully
-        document.getElementById('rsvpForm').reset();
-        document.getElementById('attendingSection').style.display = 'none';
-        document.getElementById('noteGroup').style.display = 'none';
-        document.getElementById('submitBtn').style.display = 'none';
-        document.getElementById('anotherBtn2').style.display = 'none';
-        document.getElementById('declineMsg').classList.remove('visible');
-        document.getElementById('submitStatus').classList.remove('visible');
-        document.getElementById('selectedNameDisplay').textContent = '—';
+        document.getElementById("rsvpForm").reset();
+        document.getElementById("attendingSection").style.display = "none";
+        document.getElementById("noteGroup").style.display = "none";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("anotherBtn2").style.display = "none";
+        document.getElementById("declineMsg").classList.remove("visible");
+        document.getElementById("submitStatus").classList.remove("visible");
+        document.getElementById("selectedNameDisplay").textContent = "—";
         goToStep(1);
         // Focus search box
-        setTimeout(() => document.getElementById('searchInput').focus(), 400);
+        setTimeout(() => document.getElementById("searchInput").focus(), 400);
       }
-        const el = document.getElementById('submitStatus');
+
+      function showStatus(msg, isError) {
+        const el = document.getElementById("submitStatus");
         el.textContent = msg;
-        el.style.color = isError ? '#8b4a42' : 'var(--muted)';
-        el.classList.add('visible');
+        el.style.color = isError ? "#8b4a42" : "var(--muted)";
+        el.classList.add("visible");
       }
 
       function escHtml(str) {
-        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
       }
     </script>
   </body>
